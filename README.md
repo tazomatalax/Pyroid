@@ -45,7 +45,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 Run the application by executing:
 
 ```
-python gyroid_generator.py
+python gyroid.py
 ```
 
 Use the GUI to adjust parameters and generate your custom gyroid structure. Click "Generate Gyroid" to create the model and "Save STL" to export it for 3D printing.
