@@ -42,11 +42,11 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
    ```
 3. Clone this repository:
    ```
-   git clone https://github.com/tazomatalax/Pyroid.git
+   git clone https://github.com/tazomatalax/pyroid.git
    ```
 4. Navigate to the project directory:
    ```
-   cd Pyroid
+   cd pyroid
    ```
 5. Create Virtual Environment (optional but reccomended)
    ```
