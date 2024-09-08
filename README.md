@@ -4,9 +4,11 @@
 
 This project is currently under active development. Features and functionality may change, and there might be bugs or incomplete aspects.
 
+
 ## Description
 
 The Radially Symmetrical Gyroid Generator is a Python-based application that allows users to create and visualize customizable gyroid structures. It provides a graphical user interface for adjusting various parameters to generate unique, radially symmetrical gyroid models.
+<img width="731" alt="image" src="https://github.com/user-attachments/assets/741ab68a-3688-4f59-9f43-9f8c42e98ab8">
 
 ## Current Features
 
@@ -14,7 +16,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 - Real-time 3D visualization of the generated gyroid
 - Customizable gyroid properties (dimensions, cell sizes, wall thickness, etc.)
 - Dual-color visualization with adjustable intersect angle
-- STL export functionality for 3D printing
+- STL/OBJ export functionality for 3D printing
 
 ## Installation
 
@@ -24,6 +26,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 - PyQt5
 - PyVista
 - NumPy
+- trimesh
 
 ### Steps
 
@@ -35,9 +38,14 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
    ```
    cd gyroid-generator
    ```
-3. Install the required dependencies:
+3. Create Virtual Environment (optional but reccomended)
    ```
-   pip install -r requirements.txt
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+4. Install the required dependencies:
+   ```
+   pip install -r requirements.txt # or pip install numpy pyvista trimesh PyQt5 pyvistaqt
    ```
 
 ## Usage
@@ -62,6 +70,7 @@ Use the GUI to adjust parameters and generate your custom gyroid structure. Clic
 - [ ] Performance optimizations for handling higher resolutions
 - [ ] More export options (e.g., OBJ, STEP formats)
 - [ ] Undo/Redo functionality
+- [ ] Importing .STL or other bodies to use as an implicit body to apply gyroid latticing
 
 ## Contributing
 
