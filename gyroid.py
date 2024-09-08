@@ -24,7 +24,7 @@ class GyroidGeneratorGUI(QMainWindow):
         self.params = {}
         default_params = {
             'res': 80, 'a': 24, 'b': 24, 'c': 10, 'r1': 12, 'r2': 0,
-            'phi_scale': 1.8, 'wall_thickness': 10, 'cell_radius': 4, 'cell_height': 4
+            'phi_scale': 8, 'wall_thickness': 11.5, 'cell_radius': 2, 'cell_height': 3
         }
         param_descriptions = {
             'res': 'Resolution of the grid in each dimension. Higher values create more detailed structures but increase computation time.',
