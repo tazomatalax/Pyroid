@@ -53,13 +53,18 @@ export QT_QPA_PLATFORM=xcb
 ```
 For further assistance, feel free to open an issue on the GitHub repository.
 
-## Steps
+### Steps
 
 1. Clone this repository:
    ```
    git clone https://github.com/tazomatalax/pyroid.git
    ```
    NOTE: If you dont have "git" installed in windows, do that first. Otherwise, skip this step and just download the repo as a .zip.
+   Save file on desktop and extract to desktop, then open cmd.exe and type:
+   ```
+   cd Desktop\pyroid-main\pyroid-main
+   ```
+   Skip Step 3
     
 3. Navigate to the project directory:
    ```
