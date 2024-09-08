@@ -30,30 +30,20 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 
 ### Steps
 
-1. Install Python
-   ```
-   sudo apt update && upgrade
-   sudo apt install python3 python3-pip ipython3
-   ```
-   You may also need to create a symbolic link to python3 to get python commands to work
-
-   ```
-   sudo ln -s /usr/bin/python3 /usr/local/bin/python
-   ```
-3. Clone this repository:
+1. Clone this repository:
    ```
    git clone https://github.com/tazomatalax/pyroid.git
    ```
-4. Navigate to the project directory:
+2. Navigate to the project directory:
    ```
    cd pyroid
    ```
-5. Create Virtual Environment (optional but reccomended)
+3. Create Virtual Environment (optional but reccomended)
    ```
    python -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-6. Install the required dependencies:
+4. Install the required dependencies:
    ```
    pip install -r requirements.txt # or pip install numpy pyvista trimesh PyQt5 pyvistaqt
    ```
