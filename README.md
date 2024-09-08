@@ -49,6 +49,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
    ```
    python -m venv venv
    ```
+   And activate it with (Windows)
    ```
    venv\Scripts\activate
    ```
