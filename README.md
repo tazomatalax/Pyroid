@@ -15,7 +15,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 - Interactive GUI for parameter input
 - Real-time 3D visualization of the generated gyroid
 - Customizable gyroid properties (dimensions, cell sizes, wall thickness, etc.)
-- Dual-color visualization with adjustable intersect angle
+- Dual-color visualization
 - STL/OBJ export functionality for 3D printing
 
 ## Installation
@@ -84,7 +84,7 @@ After export, the walls of the inner structure need thickening. This can be acco
 1. Open blender and delete the cube.
 2. File > Import > STL (.stl)
 3. Apply wireframe to better visualise the mesh.
-4. Apply a solid modifier with 0 offset to a thickness of your choice to the model
+4. Apply a solid modifier, with 0 offset, to a thickness of your choice to the model
 5. Apply a remesh modifier to smooth things out
 6. File > Export > STL (.stl)
    
