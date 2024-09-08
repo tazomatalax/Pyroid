@@ -56,7 +56,23 @@ Run the application by executing:
 python gyroid.py
 ```
 
-Use the GUI to adjust parameters and generate your custom gyroid structure. Click "Generate Gyroid" to create the model and "Save STL" to export it for 3D printing.
+Use the GUI to adjust parameters and generate your custom gyroid structure. Click "Generate Gyroid" to create the model and "Save STL" to export it.
+After export, the walls of the inner structure need thickening. This can be acomplished using Blender.
+
+1. Open blender and delete the cube.
+2. File > Import > STL (.stl)
+3. Apply wireframe to better visualise the mesh.
+4. Apply a solid modifier with 0 offset to a thickness of your choice to the model
+5. Apply a remesh modifier to smooth things out
+6. File > Export > STL (.stl)
+   
+<img width="1918" alt="image" src="https://github.com/user-attachments/assets/64ee483d-05cf-4275-b4be-437bbdcf94c6">
+
+7. I found that I needed to "Cut" the model at the top (save bottom object), and the bottom (save top object) in order to have flat surfaces to print
+8. Slice and print!
+
+<img width="1280" alt="image" src="https://github.com/user-attachments/assets/dd770983-72bc-4c1c-b885-cee5cee44684">
+
 
 ## Known Issues
 
