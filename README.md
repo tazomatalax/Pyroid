@@ -57,7 +57,7 @@ python gyroid.py
 ```
 
 Use the GUI to adjust parameters and generate your custom gyroid structure. Click "Generate Gyroid" to create the model and "Save STL" to export it.
-After export, the walls of the inner structure need thickening. This can be acomplished using Blender.
+After export, the walls of the inner structure need thickening. This can be accomplished using Blender.
 
 1. Open blender and delete the cube.
 2. File > Import > STL (.stl)
