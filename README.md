@@ -36,7 +36,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
    ```
 2. Navigate to the project directory:
    ```
-   cd gyroid-generator
+   cd Pyroid
    ```
 3. Create Virtual Environment (optional but reccomended)
    ```
