@@ -32,7 +32,7 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/gyroid-generator.git
+   git clone https://github.com/tazomatalax/Pyroid.git
    ```
 2. Navigate to the project directory:
    ```
