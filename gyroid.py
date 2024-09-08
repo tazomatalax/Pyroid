@@ -1,7 +1,7 @@
 import sys
 import pyvista as pv
 import numpy as np
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QMessageBox, QColorDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 from pyvistaqt import QtInteractor
 
@@ -23,8 +23,8 @@ class GyroidGeneratorGUI(QMainWindow):
         # Parameter inputs and descriptions
         self.params = {}
         default_params = {
-            'res': 100, 'a': 24, 'b': 24, 'c': 50, 'r1': 12, 'r2': 2,
-            'phi_scale': 6, 'wall_thickness': 10, 'cell_radius': 6, 'cell_height': 6
+            'res': 80, 'a': 24, 'b': 24, 'c': 10, 'r1': 12, 'r2': 0,
+            'phi_scale': 1.8, 'wall_thickness': 10, 'cell_radius': 4, 'cell_height': 4
         }
         param_descriptions = {
             'res': 'Resolution of the grid in each dimension. Higher values create more detailed structures but increase computation time.',
@@ -70,13 +70,6 @@ class GyroidGeneratorGUI(QMainWindow):
         save_button.clicked.connect(self.save_stl)
         left_layout.addWidget(save_button)
 
-        color_button = QPushButton("Choose Color")
-        color_button.clicked.connect(self.choose_color)
-        left_layout.addWidget(color_button)
-        self.color_descriptor = QLabel("Color: Click to choose gyroid color")
-        left_layout.addWidget(self.color_descriptor)
-        self.gyroid_color = [1, 1, 1]  # Default color: white
-
         # Right panel for visualization
         self.plotter = QtInteractor(self)
         main_layout.addWidget(self.plotter, 2)
@@ -113,7 +106,7 @@ class GyroidGeneratorGUI(QMainWindow):
 
             # Visualize
             self.plotter.clear()
-            self.plotter.add_mesh(self.gyroid_mesh, color=self.gyroid_color, show_scalar_bar=False)
+            self.plotter.add_mesh(self.gyroid_mesh, scalars=self.gyroid_mesh.points[:, -1], show_scalar_bar=False)
             self.plotter.add_bounding_box()
             self.plotter.show_axes()
             self.plotter.reset_camera()
@@ -131,12 +124,6 @@ class GyroidGeneratorGUI(QMainWindow):
         if filename:
             self.gyroid_mesh.save(filename)
             QMessageBox.information(self, "Success", f"STL file saved as {filename}")
-
-    def choose_color(self):
-        color = QColorDialog.getColor()
-        if color.isValid():
-            self.gyroid_color = [color.red() / 255, color.green() / 255, color.blue() / 255]
-            self.color_descriptor.setText(f"Color: {color.name()}")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
