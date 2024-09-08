@@ -48,9 +48,15 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 4. Create Virtual Environment (optional but reccomended)
    ```
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-5. Install the required dependencies:
+   ```
+   venv\Scripts\activate
+   ```
+   On Linux use:
+   ```
+   source venv/bin/activate
+   ```
+6. Install the required dependencies:
    ```
    pip install -r requirements.txt # or pip install numpy pyvista trimesh PyQt5 pyvistaqt
    ```
