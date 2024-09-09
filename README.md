@@ -34,7 +34,8 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
    ```
    git clone https://github.com/tazomatalax/pyroid.git
    ```
-   NOTE: If you dont have "git" installed in windows, do that first. Otherwise, skip this step and just download the repo as a .zip.
+   NOTE: If you dont have "git" installed in windows, do that first. Otherwise, skip this step and just [download the repo as a .zip](https://github.com/tazomatalax/pyroid/archive/refs/heads/main.zip) .
+   https://github.com/tazomatalax/pyroid/archive/refs/heads/main.zip
    Save file to Downloads, and extract to Downloads, then open cmd.exe and type:
    ```
    cd Downloads\pyroid-main\pyroid-main
