@@ -72,20 +72,52 @@ The Radially Symmetrical Gyroid Generator is a Python-based application that all
 
 ## Usage
 
-Run the application by executing:
+1. Navigate to the project directory:
+   ```
+   cd pyroid
+   ```
 
-```
-python gyroid.py
-```
+2. Create a Virtual Environment (optional but recommended):
+   ```
+   python -m venv venv
+   ```
+   
+   And activate it:
+   - On Windows:
+     ```
+     venv\Scripts\activate
+     ```
+   - On macOS and Linux:
+     ```
+     source venv/bin/activate
+     ```
+
+3. Install the required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Navigate to the `gygui` folder:
+   ```
+   cd gygui
+   ```
+
+5. Run the application by executing:
+   ```
+   python main.py
+   ```
 
 Use the GUI to adjust parameters and generate your custom gyroid structure. Click "Generate Gyroid" to create the model and "Save STL" to export it.
-After export, the walls of the inner structure need thickening. This can be accomplished using Blender.
 
-1. Open blender and delete the cube.
+Note: If you encounter any issues with PyVista, ensure that you have a compatible graphics driver installed and updated.
+
+After export, the walls of the inner structure may need thickening. This can be accomplished using Blender:
+
+1. Open Blender and delete the default cube.
 2. File > Import > STL (.stl)
-3. Apply wireframe to better visualise the mesh.
-4. Apply a solid modifier, with 0 offset, to a thickness of your choice to the model
-5. Apply a remesh modifier to smooth things out
+3. Apply wireframe to better visualize the mesh.
+4. Apply a Solidify modifier, with 0 offset, to a thickness of your choice to the model.
+5. Apply a Remesh modifier to smooth things out.
 6. File > Export > STL (.stl)
    
 <img width="1918" alt="image" src="https://github.com/user-attachments/assets/64ee483d-05cf-4275-b4be-437bbdcf94c6">

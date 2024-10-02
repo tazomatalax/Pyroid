@@ -10,9 +10,6 @@ class GyroidGeneratorGUI(QMainWindow):
         super().__init__()
         self.gyroid_generator = gyroid_generator
         self.visualization = visualization
-        self.init_ui()
-
-    def init_ui(self):
         self.setWindowTitle("Radially Symmetrical Gyroid Generator")
         self.setGeometry(100, 100, 1000, 600)
         main_widget = QWidget()
@@ -39,20 +36,43 @@ class GyroidGeneratorGUI(QMainWindow):
         self.create_buttons(left_layout)
 
     def create_param_inputs(self, layout):
-        default_params = {'res': 100, 'a': 24, 'b': 24, 'c': 50, 'r1': 12, 'r2': 2,
-                          'phi_scale': 6, 'wall_thickness': 2, 'cell_radius': 6, 'cell_height': 6}
+        default_params = {'res': 80, 'a': 24, 'b': 24, 'c': 10, 'r1': 12, 'r2': 0,
+                          'phi_scale': 8, 'cell_radius': 2, 'cell_height': 3}
+        param_descriptions = {
+            'res': 'Resolution of the grid in each dimension. Higher values create more detailed structures but increase computation time.',
+            'a': 'Dimension length along the X-axis. Affects the overall width of the gyroid.',
+            'b': 'Dimension length along the Y-axis. Affects the overall depth of the gyroid.',
+            'c': 'Dimension length along the Z-axis. Affects the overall height of the gyroid.',
+            'r1': 'Inner radius of the gyroid structure. Determines the size of the central void.',
+            'r2': 'Outer radius of the gyroid structure. Determines the overall thickness of the structure.',
+            'phi_scale': 'Scaling factor for the angular coordinate. Affects the number of twists in the structure.',
+            'cell_radius': 'Radius of the cells in the gyroid structure. Affects the size of individual "pores" in the structure.',
+            'cell_height': 'Height of the cells in the gyroid structure. Affects the vertical spacing of features.'
+        }
+        param_labels = {
+            'res': 'Resolution',
+            'a': 'X-axis Length',
+            'b': 'Y-axis Length',
+            'c': 'Z-axis Length',
+            'r1': 'Inner Radius',
+            'r2': 'Outer Radius',
+            'phi_scale': 'Angular Scaling Factor',
+            'cell_radius': 'Cell Radius',
+            'cell_height': 'Cell Height'
+        }
         params = {}
         for key, value in default_params.items():
-            layout.addLayout(self.create_param_input(key, value, params))
+            layout.addLayout(self.create_param_input(key, value, params, param_labels[key], param_descriptions[key]))
         return params
 
-    def create_param_input(self, label_text, default_value, params):
+    def create_param_input(self, key, default_value, params, label_text, description):
         layout = QHBoxLayout()
         label = QLabel(f"{label_text}:")
         line_edit = QLineEdit(str(default_value))
+        line_edit.setToolTip(description)
         layout.addWidget(label)
         layout.addWidget(line_edit)
-        params[label_text] = line_edit
+        params[key] = line_edit
         return layout
 
     def create_buttons(self, layout):
@@ -60,17 +80,9 @@ class GyroidGeneratorGUI(QMainWindow):
         generate_button.clicked.connect(self.generate_gyroid)
         layout.addWidget(generate_button)
 
-        save_button = QPushButton("Save STL")
-        save_button.clicked.connect(self.save_stl)
+        save_button = QPushButton("Save STL/OBJ")
+        save_button.clicked.connect(self.save_mesh)
         layout.addWidget(save_button)
-
-        color_button1 = QPushButton("Choose Color 1")
-        color_button1.clicked.connect(lambda: self.choose_color(1))
-        layout.addWidget(color_button1)
-
-        color_button2 = QPushButton("Choose Color 2")
-        color_button2.clicked.connect(lambda: self.choose_color(2))
-        layout.addWidget(color_button2)
 
     def generate_gyroid(self):
         try:
@@ -81,17 +93,27 @@ class GyroidGeneratorGUI(QMainWindow):
             # Visualize
             self.visualization.render(self.plotter, self.gyroid_mesh, self.gyroid_colors)
 
+            QMessageBox.information(self, "Success", "Gyroid generated successfully!")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to generate gyroid: {str(e)}")
 
-    def save_stl(self):
+    def save_mesh(self):
         if self.gyroid_mesh is None:
             QMessageBox.warning(self, "Warning", "Please generate a gyroid first.")
             return
-        filename, _ = QFileDialog.getSaveFileName(self, "Save STL", "", "STL Files (*.stl)")
+
+        options = "STL Files (*.stl);;OBJ Files (*.obj)"
+        filename, filetype = QFileDialog.getSaveFileName(self, "Save STL/OBJ", "", options)
+
         if filename:
-            self.gyroid_generator.save_stl(self.gyroid_mesh, filename)
-            QMessageBox.information(self, "Success", f"STL file saved as {filename}")
+            try:
+                if filetype == "OBJ Files (*.obj)":
+                    self.gyroid_generator.save_obj(self.gyroid_mesh, filename)
+                else:
+                    self.gyroid_generator.save_stl(self.gyroid_mesh, filename)
+                QMessageBox.information(self, "Success", f"Mesh saved as {filename}")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to save mesh: {str(e)}")
 
     def choose_color(self, color_index):
         color = QColorDialog.getColor()

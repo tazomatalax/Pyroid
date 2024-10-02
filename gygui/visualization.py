@@ -1,15 +1,44 @@
 import numpy as np
+import pyvista as pv
 
 class GyroidVisualization:
     def render(self, plotter, gyroid_mesh, gyroid_colors):
         plotter.clear()
         
-        # Calculate normalized radial distance and blend colors
-        r_values = np.sqrt(gyroid_mesh.points[:, 0]**2 + gyroid_mesh.points[:, 1]**2 + gyroid_mesh.points[:, 2]**2)
-        r_normalized = np.clip(r_values / np.max(r_values), 0, 1)
-        blended_colors = np.outer(1 - r_normalized, gyroid_colors[0]) + np.outer(r_normalized, gyroid_colors[1])
-
-        plotter.add_mesh(gyroid_mesh, scalars=blended_colors, rgb=True, show_scalar_bar=False)
-        plotter.add_bounding_box()
-        plotter.show_axes()
+        # Add the gyroid mesh with improved appearance
+        plotter.add_mesh(gyroid_mesh, 
+                         scalars=gyroid_mesh.points[:, -1], 
+                         show_scalar_bar=False,
+                         smooth_shading=True,
+                         specular=0.5,
+                         cmap='viridis')
+        
+        # Add a semi-transparent bounding box
+        bounds = gyroid_mesh.bounds
+        box = pv.Box(bounds)
+        plotter.add_mesh(box, style='wireframe', color='gray', opacity=0.5)
+        
+        # Add axes with labels
+        plotter.add_axes(xlabel='X', ylabel='Y', zlabel='Z', line_width=2)
+        
+        # Add text displaying mesh information
+        info = f"Vertices: {gyroid_mesh.n_points}\nFaces: {gyroid_mesh.n_cells}"
+        plotter.add_text(info, position='upper_left', font_size=10)
+        
+        # Set camera position for a good initial view
+        plotter.camera_position = 'iso'
         plotter.reset_camera()
+        
+        # Enable shadows for better depth perception
+        plotter.enable_shadows()
+        
+        # Add a simple ground plane
+        center = gyroid_mesh.center
+        normal = [0, 0, 1]
+        origin = [center[0], center[1], bounds[4]]  # Use the bottom of the bounding box for Z
+        plotter.add_mesh(pv.Plane(center=origin, direction=normal, i_size=bounds[1]-bounds[0], j_size=bounds[3]-bounds[2]),
+                         color='lightgray', opacity=0.5)
+
+    def update_colors(self, plotter, gyroid_mesh, new_colors):
+        # Method to update colors without regenerating the entire visualization
+        plotter.update_scalars(new_colors, mesh=gyroid_mesh)
