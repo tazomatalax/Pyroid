@@ -1,5 +1,5 @@
 import sys
-import os
+
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtCore import Qt
@@ -28,9 +28,6 @@ def set_dark_theme(app):
     app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
 
 if __name__ == "__main__":
-    # Change the working directory to the script's directory
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
     app = QApplication(sys.argv)
     
     # Uncomment the following line to use QDarkStyle
