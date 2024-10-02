@@ -1,7 +1,10 @@
 import sys
+import os
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                              QHBoxLayout, QLabel, QLineEdit, QPushButton, 
-                             QFileDialog, QMessageBox, QColorDialog)
+                             QFileDialog, QMessageBox, QColorDialog, QFormLayout,
+                             QFrame)
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import Qt
 from pyvistaqt import QtInteractor
 
@@ -12,6 +15,7 @@ class GyroidGeneratorGUI(QMainWindow):
         self.visualization = visualization
         self.setWindowTitle("Radially Symmetrical Gyroid Generator")
         self.setGeometry(100, 100, 1000, 600)
+        self.setWindowIcon(QIcon('icon.png'))  # Add an icon file to your project
         main_widget = QWidget()
         self.setCentralWidget(main_widget)
         main_layout = QHBoxLayout(main_widget)
@@ -27,12 +31,16 @@ class GyroidGeneratorGUI(QMainWindow):
         self.gyroid_colors = [[1, 1, 1], [0, 0, 0]]  # Default colors: white and black
 
     def setup_left_panel(self, main_layout):
-        left_panel = QWidget()
+        left_panel = QFrame()
+        left_panel.setFrameShape(QFrame.StyledPanel)
+        left_panel.setFrameShadow(QFrame.Raised)
         left_layout = QVBoxLayout(left_panel)
         main_layout.addWidget(left_panel, 1)
         
         # Parameter inputs and buttons
-        self.params = self.create_param_inputs(left_layout)
+        form_layout = QFormLayout()
+        self.params = self.create_param_inputs(form_layout)
+        left_layout.addLayout(form_layout)
         self.create_buttons(left_layout)
 
     def create_param_inputs(self, layout):
@@ -62,27 +70,65 @@ class GyroidGeneratorGUI(QMainWindow):
         }
         params = {}
         for key, value in default_params.items():
-            layout.addLayout(self.create_param_input(key, value, params, param_labels[key], param_descriptions[key]))
+            label, line_edit = self.create_param_input(key, value, param_labels[key], param_descriptions[key])
+            layout.addRow(label, line_edit)
+            params[key] = line_edit
         return params
 
-    def create_param_input(self, key, default_value, params, label_text, description):
-        layout = QHBoxLayout()
+    def create_param_input(self, key, default_value, label_text, description):
         label = QLabel(f"{label_text}:")
+        label.setFont(QFont("Arial", 10))
+        label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        
         line_edit = QLineEdit(str(default_value))
         line_edit.setToolTip(description)
-        layout.addWidget(label)
-        layout.addWidget(line_edit)
-        params[key] = line_edit
-        return layout
+        line_edit.setFixedWidth(100)
+        line_edit.setStyleSheet("""
+            QLineEdit {
+                border: 1px solid #555;
+                border-radius: 4px;
+                padding: 2px;
+            }
+        """)
+        
+        return label, line_edit
 
     def create_buttons(self, layout):
+        button_layout = QHBoxLayout()
+        
         generate_button = QPushButton("Generate Gyroid")
         generate_button.clicked.connect(self.generate_gyroid)
-        layout.addWidget(generate_button)
+        generate_button.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #45a049;
+            }
+        """)
+        button_layout.addWidget(generate_button)
 
         save_button = QPushButton("Save STL/OBJ")
         save_button.clicked.connect(self.save_mesh)
-        layout.addWidget(save_button)
+        save_button.setStyleSheet("""
+            QPushButton {
+                background-color: #008CBA;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #007B9A;
+            }
+        """)
+        button_layout.addWidget(save_button)
+        
+        layout.addLayout(button_layout)
 
     def generate_gyroid(self):
         try:
