@@ -8,6 +8,8 @@ from gui import GyroidGeneratorGUI
 from gyroid_generator import GyroidGenerator
 from visualization import GyroidVisualization
 
+
+
 def set_dark_theme(app):
     app.setStyle("Fusion")
     dark_palette = QPalette()
